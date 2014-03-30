@@ -1,6 +1,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SDL.h>    /*lib externe utilisée comme 'container' pour OpenGL*/
+#include <SDL/SDL.h>    /*lib externe utilisée comme 'container' pour OpenGL*/
 #include <ctype.h>  /*toupper*/
 #include <string.h> /*strrchr*/
 

@@ -1,0 +1,1 @@
+sdl-config --cflags --libs
