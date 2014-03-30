@@ -68,8 +68,6 @@ void parse_L_System_GL(const char *graine, const char *tab_regles[], double angl
 
 int main(int ac, char **av)
 {
-    const char *regle_dragon[] = {"X=X+YF+", "Y=-FX-Y", "F=F", NULL};
-    const char *regle_plante[] = {"F=F[+F]F[-F]F", NULL};
     SDL_Event e;
     /*<Initialisation du container>*/
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
