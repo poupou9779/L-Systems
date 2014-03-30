@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall -D_GNU_SOURCE=1 -Dmain=SDL_main
 INCLUDE=-I/MinGW/include/SDL -I/MinGW/include/GL
-LIBS=-L/MinGW/lib -lmingw32 -lSDLmain -lSDL -mwindows -lfreeglut -lopengl32 -lglu32
+LIBS=-L/MinGW/lib -lmingw32 -lSDLmain -lSDL -mwindows -lopengl32 -lglu32
 LDFLAGS=
 SRCS=main.c
 OBJS=$(SRCS:.c=.o)

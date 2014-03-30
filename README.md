@@ -9,5 +9,5 @@ L-Systems est un mini-interprèteur de L-Systems actuellement en 2D.
 
 ## Prérequis
     SDL
-    freeglut
+    glut
 
