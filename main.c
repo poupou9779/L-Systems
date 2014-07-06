@@ -1,10 +1,18 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SDL.h>    /*lib externe utilisée comme 'container' pour OpenGL*/
+#include <SDL/SDL.h>    /*lib externe utilisée comme 'container' pour OpenGL*/
 #include <ctype.h>  /*toupper*/
 #include <string.h> /*strrchr*/
 
 #define COLOUR 0xFF, 0xF0, 0x28 /*couleur entre le vert et le brun*/
+#define ALPHABET "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+/*choix lié à ma résolution, à changer sans problème*/
+#define LARGEUR 1100
+#define HAUTEUR 900
+
+const char *regle_dragon[] = {"X=X+YF+", "Y=-FX-Y", "F=F", NULL};
+const char *regle_plante[] = {"F=F[+F]F[-F]F", NULL};
 
 /*
     - graine est la chaine qui contient le L-System
@@ -13,10 +21,6 @@
     - longueur est la longueur (en pixels) de chaque trait
     - iteration est l'itération actuelle. Lorsque'elle vaut 1, on arrête la récursion et on dessine
 */
-void parse_L_System_GL(const char *graine, const char *tab_regles[], double angle, int longueur, int iteration);
-
-const char *alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 void parse_L_System_GL(const char *graine, const char *tab_regles[], double angle, int longueur, int iteration)
 {
     int i, j;
@@ -28,16 +32,16 @@ void parse_L_System_GL(const char *graine, const char *tab_regles[], double angl
             glPushMatrix();
         else if(graine[i] == ']')
             glPopMatrix();
-        else if(strrchr(alphabet, toupper(graine[i])))
+        else if(strrchr(ALPHABET, toupper(graine[i])))
         {
             /*si on est à la fin de la récursion, alors*/
             if(iteration == 1)
             {
                 /*on dessine la ligne*/
                 glBegin(GL_LINES);
-                    glColor3ub(COLOUR);
-                    glVertex2i(0, 0);
-                    glVertex2i(longueur, 0);
+                glColor3ub(COLOUR);
+                glVertex2i(0, 0);
+                glVertex2i(longueur, 0);
                 glEnd();
                 /*/!\ on n'oublie pas de déplacer le repère GL sinon tous les segments auront la même origine*/
                 glTranslated(longueur, 0, 0);
@@ -62,14 +66,8 @@ void parse_L_System_GL(const char *graine, const char *tab_regles[], double angl
     }
 }
 
-/*choix lié à ma résolution, à changer sans problème*/
-#define LARGEUR 1100
-#define HAUTEUR 900
-
 int main(int ac, char **av)
 {
-    const char *regle_dragon[] = {"X=X+YF+", "Y=-FX-Y", "F=F", NULL};
-    const char *regle_plante[] = {"F=F[+F]F[-F]F", NULL};
     SDL_Event e;
     /*<Initialisation du container>*/
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -90,7 +88,6 @@ int main(int ac, char **av)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     /*</Initialisation>*/
-
 
     glTranslated(120, 10, 0);
     glRotated(90, 0, 0, 1);
@@ -114,6 +111,4 @@ int main(int ac, char **av)
     while(e.type != SDL_QUIT && e.type != SDL_KEYDOWN);
 
     return 0;
-    (void)ac;
-    (void)av;
 }
